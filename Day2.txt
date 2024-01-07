@@ -1,0 +1,29 @@
+Missing Number :
+
+class Solution {
+public:
+    int missingNumber(vector<int>& nums) {
+        int sum =0;
+        int n=nums.size();
+        for(int i=0;i<n;i++){
+            sum += nums[i];
+        }
+        return (n*(n+1))/2-sum;
+    }
+};
+
+Best time to buy and sell stock 
+
+class Solution {
+public:
+     int maxProfit(vector<int>& prices) {
+        int n = prices.size();
+        int buy = INT_MAX;
+        int Profit = 0;
+        for(int i=0; i<n; i++){
+            buy = min(buy, prices[i]);
+            Profit = max(Profit, prices[i] - buy); 
+        }
+        return Profit;
+    }
+};
