@@ -1,0 +1,43 @@
+Maximum Subarray :
+
+class Solution {
+public:
+    int maxSubArray(vector<int>& nums) {
+      int best = -32768,sum =0;
+      if(nums.size()==1 )
+      return nums[0];
+      for(int i=0;i<nums.size();i++){
+          sum = max(nums[i], nums[i]+sum);
+          best = max(sum,best);
+
+      }
+      return best;
+    }
+};
+
+Maximum Points Card:
+class Solution {
+public:
+   int maxScore(vector<int>& cardPoints, int k) {
+        int n = cardPoints.size();
+        vector<int> leftSum(k + 1), rightSum(k + 1);
+
+       
+        for (int i = 0; i < k; ++i) {
+            leftSum[i + 1] = leftSum[i] + cardPoints[i];
+        }
+
+      
+        for (int i = 0; i < k; ++i) {
+            rightSum[i + 1] = rightSum[i] + cardPoints[n - 1 - i];
+        }
+
+        int maxScore = 0;
+        
+        for (int i = 0; i <= k; ++i) {
+            maxScore = max(maxScore, leftSum[i] + rightSum[k - i]);
+        }
+
+        return maxScore;
+   }
+};
