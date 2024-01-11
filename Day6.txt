@@ -1,0 +1,81 @@
+Valid Sudoku :
+class Solution {
+public:
+    bool isValidSudoku(vector<vector<char>>& board) {
+        if(Row(board) == 0 || Column(board) == 0)
+            return 0;
+        for(int i=0;i<=6;i+=3){
+            for(int j=0;j<=6;j+=3){
+                if(inBox(board,i,j) == 0)
+                    return 0;
+            }
+        }
+        return 1;
+    }
+    bool Row(vector<vector<char>>& board){
+        for(int i =0 ;i <9 ; i++){
+            set<char> st;
+            for(int j=0 ; j< 9 ; j++){
+              if(board[i][j]!= '.' && st.find(board[i][j] )!= st.end())
+                  return 0;
+                st.insert(board[i][j]);
+            }
+            
+        }
+        return 1;
+    }
+     bool Column(vector<vector<char>>& board){
+        for(int j =0 ;j <9 ; j++){
+             set<char> st;
+            for(int i=0 ; i< 9 ; i++){
+               if(board[i][j]!= '.' && st.find(board[i][j]) != st.end())
+                  return 0;
+                st.insert(board[i][j]);
+            }
+        }
+        return 1;
+    }
+     bool inBox(vector<vector<char>>& board,int row , int col){
+         set<char> st;
+     for(int i=row;i<=row+2;i++){
+       for(int j=col;j<=col+2;j++){
+           if(board[i][j]!= '.' && st.find(board[i][j]) != st.end())
+                  return 0;
+                st.insert(board[i][j]);
+       }
+     }
+         return 1;
+    }
+
+};
+
+K-Diff pair in an array :
+class Solution {
+public:
+    int findPairs(vector<int>& nums, int k) {
+        int n = nums.size();
+        if(n == 1) return 0;
+        set<pair<int,int>> st;
+        int l = n-2,r = n-1;
+        int ans =0;
+        sort(nums.begin(),nums.end());
+        while(l>=0){
+            if(nums[r]-nums[l] == k){
+                if(st.find({nums[l],nums[r]}) == st.end() ){
+                    ans++;
+                    st.insert({nums[l],nums[r]});
+                }
+                l--,r--;
+            }
+            else if(nums[r]-nums[l] > k){
+                r--;
+                if(r == l)
+                    l--;
+            }
+            else
+                l--;
+        }
+       return ans; 
+    }
+    
+};
