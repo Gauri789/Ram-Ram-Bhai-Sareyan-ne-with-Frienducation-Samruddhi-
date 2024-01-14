@@ -1,0 +1,50 @@
+First and Last Position Element :
+class Solution {
+public: 
+    int lowerBound(vector<int> arr, int n, int x) {
+	int l =0,h = n-1;
+	int ind = -1;
+	while(l<=h){
+	int mid = l + (h-l)/2;
+	if(arr[mid] >= x)
+	{
+		if(arr[mid] == x) ind = mid;
+		h = mid-1;
+	}
+	else
+	l = mid + 1;
+	}
+	return ind;
+}
+    int upperBound(vector<int> arr, int n, int x) {
+	int l =0,h = n-1;
+    int ind = -1;
+	while(l<=h){
+	int mid = l + (h-l)/2;
+	if(arr[mid] > x)
+	{
+	  
+		h = mid-1;
+	}
+	else{
+	l = mid + 1;
+    if(arr[mid] == x) ind = mid;
+    }
+	}
+    
+	return ind;
+}
+
+    vector<int> searchRange(vector<int>& nums, int target) {
+        int n = nums.size();
+        int lb = lowerBound(nums,n,target);
+        if(lb == -1)
+            return {-1,-1};
+    return {lowerBound(nums,n,target), upperBound(nums,n,target)};
+    }
+};
+
+Longest Palidromic Substring :
+
+
+
