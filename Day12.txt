@@ -1,0 +1,49 @@
+1)Next Permutation :
+ class Solution {
+public:
+    void nextPermutation(vector<int>& nums) {
+        if(nums.size() == 1)
+        {
+            cout<<nums[0];
+            return ;
+        }
+ 
+        int i,n =nums.size();
+        for(i=n-2;i>=0;i--){
+            if(nums[i] < nums[i+1] ){
+            break;}
+        }
+        if(i<0)
+            sort(nums.begin(),nums.end());
+        else{
+        int k =i;
+        for(int i=n-1;i>k;i--){
+            if(nums[i] > nums[k]){
+                swap(nums[i],nums[k]);
+                break;}
+        }
+        reverse(nums.begin()+k+1,nums.end());
+        }
+      
+    }
+};
+
+2)Majority Element :
+
+class Solution {
+public:
+    int majorityElement(vector<int>& nums) {
+       map<int,int> mp;
+        int ans;
+        int n = nums.size();
+        for(int i=0;i<n;i++){
+         mp[nums[i]]++;
+        }
+        for(auto &x: mp){
+      if(x.second >n/2)
+         { ans = x.first;
+         break;}
+        }
+        return ans;
+    }
+};
