@@ -1,0 +1,80 @@
+Add two numbers :
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        
+       ListNode* dummy = new ListNode(-1);
+        ListNode* curr = dummy;
+        int sum =0 ,carry =0;
+       
+       while(l1!= NULL || l2 != NULL){
+       sum = carry;
+           if(l1) sum += l1->val;
+           if(l2) sum += l2->val;
+           ListNode* flag = new ListNode(sum%10 );
+           curr->next = flag ;
+           curr= curr->next;
+           carry = sum/10;
+           if(l1) l1 = l1->next;
+           if(l2) l2 = l2->next;
+       }
+        if(carry) {
+            ListNode* newnode = new ListNode(carry);
+            curr->next = newnode;
+            
+        }
+        return dummy->next;
+    }
+};
+
+Merge K sorted lists :
+
+class Solution {
+public:
+    ListNode* mergeKLists(vector<ListNode*>& lists) {
+        // Create a min-heap using a priority queue to keep track of the smallest element
+        // from each list along with the corresponding list node.
+        priority_queue<pair<int, ListNode*>,vector<pair<int,ListNode*>>,greater<pair<int,ListNode*>>> pq;
+    if(lists.size() == 0 || (lists.size()==1 && lists[0] == NULL))
+        return NULL;
+        // Populate the priority queue with the first element from each list.
+        for(int i = 0; i < lists.size(); i++) {
+            if(lists[i])
+            pq.push({lists[i]->val, lists[i]});
+        }
+
+        // Create a dummy node to simplify the code.
+        ListNode* dummy = new ListNode(-1);
+        ListNode* temp = dummy;
+
+        // Continue until the priority queue is empty.
+        while(!pq.empty()) {
+            // Get the pair with the smallest value from the priority queue.
+            auto it = pq.top();
+            pq.pop();
+
+            // If the current list node has a next node, push the next node's value
+            // and the next node itself into the priority queue.
+            if(it.second->next != NULL)
+                pq.push({it.second->next->val, it.second->next});
+
+            // Append the current list node to the merged result.
+            temp->next = it.second;
+            temp = temp->next;
+        }
+
+        // The merged result starts from the next of the dummy node.
+        return dummy->next;
+    }
+};
