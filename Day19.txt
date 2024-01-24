@@ -1,0 +1,41 @@
+Reverse Linked List :
+ class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        if(head == NULL || head->next == NULL)
+            return head;
+        ListNode* newhead = reverseList(head->next);
+       
+        ListNode* front = head->next;
+        front->next = head;
+        head->next = NULL;
+        return newhead;
+    }
+};
+
+Valid Parentheses :
+class Solution {
+public:
+    bool isValid(string s) {
+      stack<char> stk;
+     char ch;
+     char top;
+     for(int i=0;i<s.length();i++){
+         ch = s[i];
+         if(ch =='(' || ch == '[' || ch== '{')
+         stk.push(ch);
+         else{
+             if(!stk.empty()){
+                 top = stk.top();
+                 if(ch == ']' && top == '[' || ch=='}' && top== '{' || ch == ')' && top =='(')
+                 stk.pop();
+                 else
+                 return false;
+             }
+              else
+                return false;
+         }
+     }
+     return stk.empty();
+    }
+};
