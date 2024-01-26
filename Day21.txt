@@ -1,0 +1,42 @@
+Nearest Smaller Element : 
+vector<int> Solution::prevSmaller(vector<int> &A) {
+ stack<int> st;
+ vector<int> ans;
+ int i=0;
+ while(i<A.size()){
+     if(st.empty()){
+         ans.push_back(-1);
+     }
+     else{
+        while(!st.empty() && st.top()>=A[i] )
+        {
+            st.pop();
+        }
+        if(st.empty())
+        ans.push_back(-1);
+        else
+        ans.push_back(st.top());
+     }
+      st.push(A[i]);
+     i++;
+ }
+ return ans;
+}
+Sliding Window Max :
+class Solution {
+public:
+    vector<int> maxSlidingWindow(vector<int>& nums, int k) {
+        vector<int> ans;
+        deque<int> dq;
+        int n = nums.size();
+        for(int i=0;i<n;i++){
+            if(!dq.empty() && dq.front() == i-k)
+                dq.pop_front();
+            while(!dq.empty() && nums[dq.back()]<=nums[i])
+                dq.pop_back();
+            dq.push_back(i);
+            if(i>=k-1) ans.push_back(nums[dq.front()]);
+        }
+        return ans;
+    }
+};
