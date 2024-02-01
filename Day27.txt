@@ -1,0 +1,36 @@
+Ceil from BST :
+int findCeil(BinaryTreeNode<int> *node, int x){ 
+    int ceil =-1;
+    while(node){
+        if(node->data == x)
+        return node->data;
+        else if(node->data < x)
+        {
+            node = node->right;
+        }
+        else{
+            ceil = node->data;
+            node = node->left;
+        }
+       
+    }
+     return ceil;
+}
+--------------------------------------------
+Kth smallest element in BST :
+int kthSmallest(TreeNode* root, int k) {
+       TreeNode* curr = root;
+        int temp =0;
+        stack<TreeNode*> st;
+        while(curr!= NULL || !st.empty()){
+            while(curr){
+            st.push(curr);
+            curr = curr->left;}
+           curr = st.top();
+           st.pop();
+            temp+=1;
+            if(temp == k) return curr->val;
+            curr = curr->right;
+        }
+    return curr->val;
+    }
