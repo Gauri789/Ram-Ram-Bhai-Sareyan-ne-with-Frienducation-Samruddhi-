@@ -1,0 +1,33 @@
+Perferct squares :
+class Solution {
+public:
+    int numSquares(int n) {
+        
+      vector<int> arr(n+1,n);
+        arr[0] = 0;
+        for(int i=1;i<=n;i++){
+            for(int j=1;j*j<=i;j++){
+                arr[i] = min(arr[i],arr[i-j*j]+1);
+            }
+            
+        }
+        return arr[n];
+    }
+};
+
+----------------------------------------
+Maximum sum of non-adjacent elements :
+#include <bits/stdc++.h> 
+int find(int ind,vector<int> &nums,vector<int>&dp){
+    if(dp[ind]!= -1) return dp[ind];
+    if(ind == 0) return nums[ind];
+    if(ind < 0) return 0;
+    int pick = nums[ind]+find(ind-2,nums,dp);
+    int notpick = find(ind-1,nums,dp);
+    return dp[ind] =max(pick,notpick);
+}
+int maximumNonAdjacentSum(vector<int> &nums){
+    int n = nums.size();
+    vector<int> dp(n,-1);
+   return find(n-1,nums,dp);
+}
